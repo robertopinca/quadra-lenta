@@ -21,9 +21,11 @@ python manage.py runserver
 O site sobe em <http://localhost:8000/> e o administrador em
 <http://localhost:8000/admin/>.
 
-O comando `popular_banco` cria um super-usuário de desenvolvimento; o login
-está no cabeçalho de `blog/management/commands/popular_banco.py`. Serve só
-para a máquina local — troque antes de pôr qualquer coisa no ar.
+O comando `popular_banco` cria o super-usuário `admin`. A senha vem da
+variável `DJANGO_ADMIN_PASSWORD`; sem ela, cai num valor de desenvolvimento
+que só faz sentido em localhost. Na implantação a variável é obrigatória — o
+`render.yaml` faz o Render gerar um valor próprio, porque este repositório é
+público e uma senha escrita no código deixaria o `/admin/` aberto.
 
 ## Estrutura
 

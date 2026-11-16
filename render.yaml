@@ -14,3 +14,5 @@ services:
         value: "3.12.10"
       - key: WEB_CONCURRENCY
         value: "2"
+      - key: DJANGO_ADMIN_PASSWORD
+        generateValue: true

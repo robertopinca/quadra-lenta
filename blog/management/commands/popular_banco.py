@@ -12,10 +12,13 @@ O minimo exigido pelo enunciado, e o que este comando cria:
     2-3 comentarios nos posts comentados     -> 3, 2 e 2
     3 categorias, cada post em ao menos uma  -> 4 categorias
 
-CREDENCIAL DE DESENVOLVIMENTO: o super-usuario e criado como
-admin / saibro1997 . Serve para abrir o /admin/ na maquina local e nada
-mais. Troque antes de pos qualquer coisa no ar.
+SUPER-USUARIO: a senha vem de DJANGO_ADMIN_PASSWORD. Sem essa variavel,
+cai num valor de desenvolvimento que so faz sentido em localhost. Na
+implantacao a variavel e obrigatoria, e o Render gera um valor proprio:
+sem isso o /admin/ de um site publico ficaria com senha conhecida, ja que
+este arquivo esta no repositorio.
 """
+import os
 from datetime import datetime
 
 from django.contrib.auth import get_user_model
@@ -26,7 +29,12 @@ from blog.models import Category, Comment, Post
 
 User = get_user_model()
 
-SUPERUSUARIO = {'username': 'admin', 'email': 'admin@quadralenta.test', 'senha': 'saibro1997'}
+SUPERUSUARIO = {
+    'username': os.environ.get('DJANGO_ADMIN_USER', 'admin'),
+    'email': 'admin@quadralenta.test',
+    # Fallback apenas para desenvolvimento local.
+    'senha': os.environ.get('DJANGO_ADMIN_PASSWORD', 'admin-local-apenas'),
+}
 
 # Leitores do blog. Nunca fazem login: entram so como autor de comentario,
 # criados pelo administrador a partir do super-usuario, como pede o enunciado.
