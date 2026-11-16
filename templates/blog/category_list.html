@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Categorias &mdash; Quadra Lenta{% endblock %}
+
+{% block conteudo %}
+
+  <h1>Categorias</h1>
+  <p class="chamada">
+    O blog é dividido assim. Um post pode estar em mais de uma.
+  </p>
+
+  <ul class="lista-categorias">
+    {% for categoria in categorias %}
+      <li class="item-categoria">
+        <h2>
+          <a href="{% url 'category_detail' categoria.pk %}">{{ categoria.nome }}</a>
+        </h2>
+        <p>
+          {{ categoria.descricao }}
+          <span class="meta">
+            &middot; {{ categoria.posts.count }} post{{ categoria.posts.count|pluralize }}
+          </span>
+        </p>
+      </li>
+    {% empty %}
+      <li class="item-categoria">
+        <p class="sem-comentarios">Nenhuma categoria cadastrada.</p>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <p class="acoes-post">
+    <a class="botao botao-vazio" href="{% url 'post_list' %}">Voltar aos posts</a>
+  </p>
+
+{% endblock %}
