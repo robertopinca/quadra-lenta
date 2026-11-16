@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +21,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-fw3g+yu2$1*^b(bvn(=0*!g(rmv^*g^0a&*hcd1peku0^+syw1'
+# Em producao a chave vem do ambiente; o valor abaixo e so para
+# desenvolvimento local, e por isso nao e segredo nenhum.
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    'django-insecure-fw3g+yu2$1*^b(bvn(=0*!g(rmv^*g^0a&*hcd1peku0^+syw1',
+)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Ligado por padrao para desenvolvimento. Na implantacao, defina
+# DJANGO_DEBUG=0 no ambiente.
+DEBUG = os.environ.get('DJANGO_DEBUG', '1') == '1'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
+
+# O Render publica o dominio da aplicacao nesta variavel.
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+    CSRF_TRUSTED_ORIGINS = [f'https://{RENDER_EXTERNAL_HOSTNAME}']
 
 
 # Application definition
@@ -128,6 +141,17 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Redirecionamentos de login/logout do django.contrib.auth.
 LOGIN_REDIRECT_URL = 'post_list'
 LOGOUT_REDIRECT_URL = 'post_list'
+
+
+# Endurecimento aplicado apenas fora do desenvolvimento. O Render termina o
+# TLS no proxy dele, entao o Django precisa do cabecalho para saber que a
+# requisicao original era HTTPS — sem isso, SECURE_SSL_REDIRECT entra em
+# laco infinito de redirecionamento.
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 
 # Email

@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: quadra-lenta
+    runtime: python
+    plan: free
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn tennisblog.wsgi:application"
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DJANGO_DEBUG
+        value: "0"
+      - key: PYTHON_VERSION
+        value: "3.12.10"
+      - key: WEB_CONCURRENCY
+        value: "2"
