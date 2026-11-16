@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Remover post &mdash; Quadra Lenta{% endblock %}
+
+{% block conteudo %}
+
+  <h1>Remover post</h1>
+
+  <div class="aviso-remocao">
+    <p>
+      <strong>Isto não tem volta.</strong>
+      O post abaixo sai do banco junto com tudo que estiver pendurado nele.
+    </p>
+    <p>
+      &ldquo;{{ post.titulo }}&rdquo;,
+      de {{ post.data_postagem|date:"j \d\e F \d\e Y" }}.
+    </p>
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="acoes">
+      <button class="botao botao-perigo" type="submit">Sim, remover</button>
+      <a class="botao botao-vazio" href="{% url 'post_detail' post.pk %}">Não, voltar ao post</a>
+    </div>
+  </form>
+
+{% endblock %}

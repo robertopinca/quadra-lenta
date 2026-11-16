@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.titulo }} &mdash; Quadra Lenta{% endblock %}
+
+{% block conteudo %}
+
+  <article>
+    <h1>{{ post.titulo }}</h1>
+    <p class="meta">{{ post.data_postagem|date:"j \d\e F \d\e Y, H:i" }}</p>
+
+    {# O conteudo e guardado como HTML; o filtro safe o renderiza. #}
+    <div class="post-corpo">{{ post.conteudo|safe }}</div>
+
+    <p class="acoes-post">
+      <a class="botao botao-vazio" href="{% url 'post_update' post.pk %}">Editar</a>
+      <a class="botao botao-perigo" href="{% url 'post_delete' post.pk %}">Remover</a>
+      <a class="botao botao-vazio" href="{% url 'post_list' %}">Voltar aos posts</a>
+    </p>
+  </article>
+
+{% endblock %}

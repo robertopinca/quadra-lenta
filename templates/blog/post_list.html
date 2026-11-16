@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Quadra Lenta{% endblock %}
+
+{% block conteudo %}
+
+  <h2 class="secao-titulo">Últimos posts</h2>
+
+  <ul class="lista-posts">
+    {% for post in posts %}
+      <li class="item-post">
+        <h2><a href="{% url 'post_detail' post.pk %}">{{ post.titulo }}</a></h2>
+        <p class="meta">{{ post.data_postagem|date:"j \d\e F \d\e Y, H:i" }}</p>
+        <p class="chamada">{{ post.conteudo|striptags|truncatewords:28 }}</p>
+      </li>
+    {% empty %}
+      <li class="item-post">
+        <p class="sem-comentarios">
+          Nada publicado por aqui ainda.
+          <a href="{% url 'post_create' %}">Escrever o primeiro post</a>.
+        </p>
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

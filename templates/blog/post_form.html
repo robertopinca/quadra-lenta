@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ acao }} &mdash; Quadra Lenta{% endblock %}
+
+{% block conteudo %}
+
+  <h1>{{ acao }}</h1>
+
+  {# VERSAO 1: formulario escrito a mao, sem Django forms. #}
+  <form class="formulario" method="post">
+    {% csrf_token %}
+
+    <p>
+      <label for="id_titulo">Título</label>
+      <input type="text" name="titulo" id="id_titulo"
+             value="{{ post.titulo|default:'' }}">
+    </p>
+
+    <p>
+      <label for="id_data_postagem">Data de postagem</label>
+      <input type="datetime-local" name="data_postagem" id="id_data_postagem"
+             value="{{ post.data_postagem|date:'Y-m-d\TH:i' }}">
+      <span class="helptext">Em branco, usa o instante do envio.</span>
+    </p>
+
+    <p>
+      <label for="id_conteudo">Conteúdo (HTML)</label>
+      <textarea name="conteudo" id="id_conteudo">{{ post.conteudo|default:'' }}</textarea>
+      <span class="helptext">Aceita HTML: placar, tabela de estatísticas, o que for.</span>
+    </p>
+
+    <div class="acoes">
+      <button class="botao" type="submit">Salvar</button>
+      {% if post %}
+        <a class="botao botao-vazio" href="{% url 'post_detail' post.pk %}">Cancelar</a>
+      {% else %}
+        <a class="botao botao-vazio" href="{% url 'post_list' %}">Cancelar</a>
+      {% endif %}
+    </div>
+  </form>
+
+{% endblock %}
