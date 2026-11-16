@@ -18,7 +18,7 @@ from django.views.generic import (
 )
 
 from .forms import CommentForm, PostForm
-from .models import Post
+from .models import Category, Post
 
 
 class PostListView(ListView):
@@ -56,6 +56,29 @@ class PostDeleteView(DeleteView):
     model = Post
     template_name = 'blog/post_confirm_delete.html'
     success_url = reverse_lazy('post_list')
+
+
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'blog/category_list.html'
+    context_object_name = 'categorias'
+
+
+class CategoryDetailView(DetailView):
+    """Pagina individual de categoria.
+
+    Reaproveita blog/post_list.html, como pede o enunciado: o mesmo template
+    da listagem geral, com a categoria no contexto para o cabecalho mudar.
+    """
+
+    model = Category
+    template_name = 'blog/post_list.html'
+    context_object_name = 'categoria'
+
+    def get_context_data(self, **kwargs):
+        contexto = super().get_context_data(**kwargs)
+        contexto['posts'] = self.object.posts.all()
+        return contexto
 
 
 class CommentCreateView(CreateView):

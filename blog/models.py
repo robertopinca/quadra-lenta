@@ -4,6 +4,24 @@ from django.urls import reverse
 from django.utils import timezone
 
 
+class Category(models.Model):
+    """Categoria de posts. Um post pode estar em varias."""
+
+    nome = models.CharField('nome', max_length=80, unique=True)
+    descricao = models.TextField('descricao', blank=True)
+
+    class Meta:
+        verbose_name = 'categoria'
+        verbose_name_plural = 'categorias'
+        ordering = ['nome']
+
+    def __str__(self):
+        return self.nome
+
+    def get_absolute_url(self):
+        return reverse('category_detail', args=[self.pk])
+
+
 class Post(models.Model):
     """Uma materia do blog.
 
@@ -18,6 +36,12 @@ class Post(models.Model):
         help_text='Aceita HTML. Renderizado no template com o filtro safe.',
     )
     data_postagem = models.DateTimeField('data de postagem')
+    categorias = models.ManyToManyField(
+        Category,
+        related_name='posts',
+        blank=True,
+        verbose_name='categorias',
+    )
 
     class Meta:
         verbose_name = 'post'

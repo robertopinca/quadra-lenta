@@ -12,17 +12,19 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ['titulo', 'data_postagem', 'conteudo']
+        fields = ['titulo', 'data_postagem', 'categorias', 'conteudo']
         widgets = {
             'data_postagem': forms.DateTimeInput(
                 attrs={'type': 'datetime-local'},
                 format='%Y-%m-%dT%H:%M',
             ),
+            'categorias': forms.CheckboxSelectMultiple(),
             'conteudo': forms.Textarea(attrs={'spellcheck': 'false'}),
         }
         labels = {
             'titulo': 'Título',
             'data_postagem': 'Data de postagem',
+            'categorias': 'Categorias',
             'conteudo': 'Conteúdo (HTML)',
         }
 

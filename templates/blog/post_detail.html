@@ -11,6 +11,17 @@
     {# O conteudo e guardado como HTML; o filtro safe o renderiza. #}
     <div class="post-corpo">{{ post.conteudo|safe }}</div>
 
+    {% if post.categorias.all %}
+      <ul class="etiquetas">
+        {% for categoria in post.categorias.all %}
+          <li>
+            <a class="etiqueta"
+               href="{% url 'category_detail' categoria.pk %}">{{ categoria.nome }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
     <p class="acoes-post">
       <a class="botao botao-vazio" href="{% url 'post_update' post.pk %}">Editar</a>
       <a class="botao botao-perigo" href="{% url 'post_delete' post.pk %}">Remover</a>
