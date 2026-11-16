@@ -1,0 +1,4 @@
+# Mantem o script de build com LF: com CRLF o Linux do Render
+# responde "bad interpreter" no shebang.
+build.sh text eol=lf
+*.sh text eol=lf
