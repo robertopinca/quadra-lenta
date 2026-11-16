@@ -3,6 +3,11 @@
 Blog de tênis feito com Django. Segunda entrega de laboratório de PMR3304
 (Sistemas de Informação) — aplicação CRUD com posts, comentários e categorias.
 
+**No ar:** <https://quadra-lenta.onrender.com>
+
+> O plano gratuito do Render hiberna por inatividade: a primeira visita
+> depois de um tempo parado pode levar uns 50 segundos para responder.
+
 O conteúdo dos posts é guardado como HTML e renderizado com o filtro `safe`,
 o que permite que o corpo de cada matéria traga placar de partida, tabela de
 estatísticas e quadro de títulos sem depender de editor de texto rico.
