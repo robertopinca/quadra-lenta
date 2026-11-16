@@ -1,66 +1,51 @@
-"""Views do blog - VERSAO 2.
+"""Views do blog - VERSAO 3.
 
-Segunda das tres versoes pedidas no enunciado: continuam sendo views
-funcionais, mas agora o CRUD passa por um Django form (PostForm), que traz a
-validacao que faltava na versao 1.
+Terceira das tres versoes pedidas no enunciado: o CRUD inteiro com as classes
+genericas do Django.
+
+Duas coisas que as versoes anteriores faziam a mao e agora saem de graca:
+DetailView ja responde 404 para pk inexistente, e DeleteView ja renderiza
+blog/post_confirm_delete.html no GET, pedindo a confirmacao antes de apagar.
 """
-from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse_lazy
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
 from .forms import PostForm
 from .models import Post
 
 
-def post_list(request):
-    posts = Post.objects.all()
-    return render(request, 'blog/post_list.html', {'posts': posts})
+class PostListView(ListView):
+    model = Post
+    template_name = 'blog/post_list.html'
+    context_object_name = 'posts'
 
 
-def post_detail(request, pk):
-    # get_object_or_404 responde 404 quando o post nao existe.
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'blog/post_detail.html', {'post': post})
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'blog/post_detail.html'
 
 
-def post_create(request):
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = form.save()
-            return redirect('post_detail', pk=post.pk)
-    else:
-        form = PostForm()
-
-    return render(
-        request,
-        'blog/post_form.html',
-        {'form': form, 'acao': 'Escrever post'},
-    )
+class PostCreateView(CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'blog/post_form.html'
+    extra_context = {'acao': 'Escrever post'}
 
 
-def post_update(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-
-    if request.method == 'POST':
-        form = PostForm(request.POST, instance=post)
-        if form.is_valid():
-            post = form.save()
-            return redirect('post_detail', pk=post.pk)
-    else:
-        form = PostForm(instance=post)
-
-    return render(
-        request,
-        'blog/post_form.html',
-        {'form': form, 'post': post, 'acao': 'Editar post'},
-    )
+class PostUpdateView(UpdateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'blog/post_form.html'
+    extra_context = {'acao': 'Editar post'}
 
 
-def post_delete(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-
-    if request.method == 'POST':
-        post.delete()
-        return redirect('post_list')
-
-    # GET mostra a pagina de confirmacao exigida pelo enunciado.
-    return render(request, 'blog/post_confirm_delete.html', {'post': post})
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = 'blog/post_confirm_delete.html'
+    success_url = reverse_lazy('post_list')
