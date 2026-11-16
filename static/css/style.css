@@ -1,0 +1,597 @@
+/* Quadra Lenta - folha de estilo
+   Paleta puxada do saibro de Roland Garros: terracota, ocre, linha branca
+   e o verde escuro das placas de fundo de quadra. */
+
+:root {
+  --saibro: #b8512f;
+  --saibro-claro: #d98a68;
+  --saibro-fundo: #f4ece4;
+  --ocre: #c8853a;
+  --verde: #1f3d2b;
+  --verde-claro: #2f5a40;
+  --tinta: #2b2320;
+  --tinta-fraca: #6f635c;
+  --linha: #ded2c6;
+  --branco: #fffdfa;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background-color: var(--saibro-fundo);
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(184, 81, 47, 0.03) 0px,
+      rgba(184, 81, 47, 0.03) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  color: var(--tinta);
+  font-family: 'Bitter', Georgia, 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+a { color: var(--saibro); }
+a:hover { color: var(--verde); }
+
+/* ---------- cabecalho ---------- */
+
+.cabecalho {
+  background: var(--verde);
+  border-bottom: 5px solid var(--saibro);
+}
+
+.faixa {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 18px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.marca a {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  font-size: 2.1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--branco);
+  text-decoration: none;
+}
+
+.marca a:hover { color: var(--ocre); }
+
+.tagline {
+  display: block;
+  font-size: 0.78rem;
+  font-style: italic;
+  color: #a8bdae;
+  letter-spacing: 0.02em;
+}
+
+.menu {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.menu a {
+  color: #e4dbd1;
+  text-decoration: none;
+  margin-left: 18px;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+}
+
+.menu a:hover {
+  color: var(--branco);
+  border-bottom-color: var(--ocre);
+}
+
+.menu a.menu-destaque {
+  background: var(--saibro);
+  color: var(--branco);
+  padding: 5px 12px;
+  border-radius: 2px;
+}
+
+.menu a.menu-destaque:hover { background: var(--saibro-claro); }
+
+/* ---------- layout ---------- */
+
+.conteudo {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 36px 20px 60px;
+}
+
+.rodape {
+  border-top: 1px solid var(--linha);
+  background: #ece1d6;
+  padding: 24px 20px;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--tinta-fraca);
+}
+
+.rodape p { margin: 4px 0; }
+
+/* ---------- titulos ---------- */
+
+h1, h2, h3 {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  color: var(--verde);
+}
+
+h1 { font-size: 2.3rem; margin: 0 0 6px; }
+h2 { font-size: 1.5rem; margin: 2em 0 0.5em; }
+h3 { font-size: 1.15rem; margin: 1.6em 0 0.4em; text-transform: uppercase; letter-spacing: 0.05em; }
+
+.secao-titulo {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--saibro);
+  border-bottom: 2px solid var(--linha);
+  padding-bottom: 7px;
+  margin: 0 0 22px;
+}
+
+/* ---------- listagem de posts ---------- */
+
+.lista-posts { list-style: none; margin: 0; padding: 0; }
+
+.item-post {
+  border-bottom: 1px solid var(--linha);
+  padding: 20px 0;
+}
+
+.item-post:last-child { border-bottom: none; }
+
+.item-post h2 {
+  margin: 0 0 4px;
+  font-size: 1.5rem;
+}
+
+.item-post h2 a {
+  color: var(--verde);
+  text-decoration: none;
+}
+
+.item-post h2 a:hover {
+  color: var(--saibro);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+.meta {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--tinta-fraca);
+}
+
+.chamada {
+  margin: 8px 0 0;
+  color: #4a403a;
+}
+
+/* ---------- post individual ---------- */
+
+.post-corpo { margin-top: 26px; }
+
+.post-corpo p { margin: 0 0 1.15em; }
+
+.post-corpo blockquote {
+  margin: 1.6em 0;
+  padding: 2px 0 2px 20px;
+  border-left: 4px solid var(--ocre);
+  font-style: italic;
+  color: #4a403a;
+}
+
+.post-corpo ul, .post-corpo ol { padding-left: 22px; }
+.post-corpo li { margin-bottom: 0.4em; }
+
+.post-corpo img { max-width: 100%; height: auto; }
+
+.post-corpo figure { margin: 1.8em 0; }
+
+.post-corpo figcaption {
+  font-size: 0.8rem;
+  color: var(--tinta-fraca);
+  font-style: italic;
+  margin-top: 6px;
+}
+
+/* ---------- placar de partida ---------- */
+
+.placar {
+  border: 1px solid var(--linha);
+  border-top: 4px solid var(--verde);
+  background: var(--branco);
+  margin: 1.9em 0;
+  padding: 0;
+}
+
+.placar-cabeca {
+  background: var(--verde);
+  color: #d8e2da;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-size: 0.84rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 7px 14px;
+}
+
+.placar table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+}
+
+.placar td {
+  padding: 9px 14px;
+  border-bottom: 1px solid #f0e8e0;
+  font-size: 1.05rem;
+}
+
+.placar tr:last-child td { border-bottom: none; }
+
+.placar .jogador {
+  width: 100%;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.placar .sets {
+  text-align: center;
+  width: 40px;
+  color: var(--tinta-fraca);
+  font-variant-numeric: tabular-nums;
+}
+
+.placar .vencedor .jogador { color: var(--saibro); }
+.placar .vencedor .sets { color: var(--tinta); font-weight: 700; }
+
+.placar .tb { font-size: 0.72em; vertical-align: super; color: var(--tinta-fraca); }
+
+.placar-pe {
+  padding: 8px 14px;
+  font-size: 0.78rem;
+  color: var(--tinta-fraca);
+  background: #faf6f2;
+  border-top: 1px solid #f0e8e0;
+  font-style: italic;
+}
+
+/* ---------- tabela de estatisticas ---------- */
+
+.stats {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.9em 0;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-size: 1rem;
+  background: var(--branco);
+}
+
+.stats caption {
+  caption-side: top;
+  text-align: left;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--saibro);
+  padding-bottom: 7px;
+}
+
+.stats th, .stats td {
+  padding: 8px 11px;
+  border-bottom: 1px solid var(--linha);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.stats th { color: var(--verde); }
+
+.stats thead th {
+  background: #ece1d6;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
+  border-bottom: 2px solid var(--linha);
+}
+
+.stats th:first-child,
+.stats td:first-child { text-align: left; }
+
+.stats tbody tr:hover { background: #fdf8f3; }
+
+.stats .melhor { color: var(--saibro); font-weight: 700; }
+
+/* ---------- chave / tabela de campeonato ---------- */
+
+.chave {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.9em 0;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  background: var(--branco);
+  font-size: 1rem;
+}
+
+.chave caption {
+  caption-side: top;
+  text-align: left;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--saibro);
+  padding-bottom: 7px;
+}
+
+.chave th, .chave td {
+  padding: 8px 11px;
+  border-bottom: 1px solid var(--linha);
+}
+
+.chave thead th {
+  background: var(--verde);
+  color: #d8e2da;
+  text-transform: uppercase;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-align: left;
+}
+
+.chave .fase {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--tinta-fraca);
+  white-space: nowrap;
+}
+
+.chave .campeao td { background: #fbf2e8; font-weight: 700; }
+
+/* ---------- caixinha de nota ---------- */
+
+.nota {
+  background: #fbf2e8;
+  border-left: 4px solid var(--ocre);
+  padding: 13px 17px;
+  margin: 1.8em 0;
+  font-size: 0.93rem;
+}
+
+.nota strong { color: var(--verde); }
+
+/* ---------- etiquetas de categoria ---------- */
+
+.etiquetas {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.etiqueta {
+  display: inline-block;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  background: #ece1d6;
+  color: var(--verde);
+  border: 1px solid var(--linha);
+  border-radius: 2px;
+  padding: 2px 9px;
+  text-decoration: none;
+}
+
+.etiqueta:hover {
+  background: var(--saibro);
+  color: var(--branco);
+  border-color: var(--saibro);
+}
+
+/* ---------- comentarios ---------- */
+
+.comentarios {
+  margin-top: 46px;
+  border-top: 3px double var(--linha);
+  padding-top: 26px;
+}
+
+.lista-comentarios { list-style: none; margin: 0; padding: 0; }
+
+.comentario {
+  background: var(--branco);
+  border: 1px solid var(--linha);
+  border-left: 3px solid var(--ocre);
+  padding: 13px 17px;
+  margin-bottom: 13px;
+}
+
+.comentario-cabeca {
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--tinta-fraca);
+  margin-bottom: 5px;
+}
+
+.comentario-autor { color: var(--saibro); font-weight: 600; }
+
+.comentario-texto { margin: 0; font-size: 0.97rem; }
+
+.sem-comentarios {
+  color: var(--tinta-fraca);
+  font-style: italic;
+}
+
+/* ---------- formularios ---------- */
+
+.formulario {
+  background: var(--branco);
+  border: 1px solid var(--linha);
+  padding: 22px 24px;
+  margin-top: 22px;
+}
+
+.formulario p { margin: 0 0 16px; }
+
+.formulario label {
+  display: block;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--verde);
+  margin-bottom: 4px;
+}
+
+.formulario input[type="text"],
+.formulario input[type="datetime-local"],
+.formulario input[type="password"],
+.formulario select,
+.formulario textarea {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--linha);
+  border-radius: 2px;
+  background: #fffdfa;
+  font-family: inherit;
+  font-size: 0.96rem;
+  color: var(--tinta);
+}
+
+.formulario textarea { min-height: 220px; font-family: 'Consolas', 'Courier New', monospace; font-size: 0.88rem; }
+
+.formulario input:focus,
+.formulario textarea:focus,
+.formulario select:focus {
+  outline: 2px solid var(--ocre);
+  outline-offset: 1px;
+}
+
+.formulario .helptext {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--tinta-fraca);
+  font-style: italic;
+  margin-top: 3px;
+}
+
+.formulario ul.errorlist {
+  margin: 0 0 6px;
+  padding-left: 18px;
+  color: #a32b16;
+  font-size: 0.85rem;
+}
+
+.formulario select[multiple] { min-height: 110px; }
+
+/* ---------- botoes ---------- */
+
+.botao {
+  display: inline-block;
+  font-family: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  background: var(--saibro);
+  color: var(--branco);
+  border: none;
+  border-radius: 2px;
+  padding: 9px 20px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.botao:hover { background: var(--saibro-claro); color: var(--branco); }
+
+.botao-vazio {
+  background: transparent;
+  color: var(--verde);
+  border: 1px solid var(--linha);
+}
+
+.botao-vazio:hover { background: #ece1d6; color: var(--verde); }
+
+.botao-perigo { background: #8f2b14; }
+.botao-perigo:hover { background: #a93a20; }
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.acoes-post {
+  margin: 22px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--linha);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+/* ---------- confirmacao de remocao ---------- */
+
+.aviso-remocao {
+  background: #fbeae4;
+  border: 1px solid #e2b4a3;
+  border-left: 4px solid #8f2b14;
+  padding: 17px 20px;
+  margin-top: 20px;
+}
+
+.aviso-remocao strong { color: #8f2b14; }
+
+/* ---------- listagem de categorias ---------- */
+
+.lista-categorias { list-style: none; margin: 0; padding: 0; }
+
+.item-categoria {
+  border-bottom: 1px solid var(--linha);
+  padding: 15px 0;
+}
+
+.item-categoria:last-child { border-bottom: none; }
+
+.item-categoria h2 { margin: 0 0 3px; font-size: 1.25rem; }
+.item-categoria h2 a { color: var(--verde); text-decoration: none; }
+.item-categoria h2 a:hover { color: var(--saibro); }
+.item-categoria p { margin: 0; color: var(--tinta-fraca); font-size: 0.92rem; }
+
+/* ---------- telas pequenas ---------- */
+
+@media (max-width: 620px) {
+  body { font-size: 16px; }
+  .faixa { flex-direction: column; align-items: flex-start; }
+  .menu a { margin: 0 14px 0 0; }
+  h1 { font-size: 1.8rem; }
+  .conteudo { padding: 26px 16px 44px; }
+  .placar td { padding: 7px 9px; }
+  .stats th, .stats td { padding: 6px 7px; font-size: 0.9rem; }
+}

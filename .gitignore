@@ -1,0 +1,19 @@
+# Banco de dados local - exigido pelo enunciado
+db.sqlite3
+db.sqlite3-journal
+
+# Bytecode
+__pycache__/
+*.py[cod]
+
+# Ambiente virtual
+.venv/
+venv/
+
+# Estaticos coletados na implantacao
+staticfiles/
+
+# Editor / SO
+.vscode/
+.idea/
+Thumbs.db

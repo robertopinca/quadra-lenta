@@ -1,0 +1,44 @@
+{% load static %}<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Quadra Lenta{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,600;0,800;1,400&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<header class="cabecalho">
+  <div class="faixa">
+    <div class="marca">
+      <a href="{% url 'post_list' %}">Quadra&nbsp;Lenta</a>
+      <span class="tagline">tênis, saibro e opinião</span>
+    </div>
+    <nav class="menu">
+      <a href="{% url 'post_list' %}">Posts</a>
+      {% block nav_extra %}{% endblock %}
+      <a href="{% url 'post_create' %}" class="menu-destaque">Escrever</a>
+    </nav>
+  </div>
+</header>
+
+<main class="conteudo">
+  {% block conteudo %}{% endblock %}
+</main>
+
+<footer class="rodape">
+  <p>
+    Quadra Lenta &mdash; blog pessoal, sem vínculo com federação nenhuma.
+    Feito com Django para a disciplina PMR3304.
+  </p>
+  <p class="rodape-links">
+    <a href="{% url 'post_list' %}">Todos os posts</a> ·
+    <a href="/admin/">Administração</a>
+  </p>
+</footer>
+
+</body>
+</html>
