@@ -54,6 +54,10 @@ class CommentForm(forms.ModelForm):
             'texto': forms.Textarea(attrs={'rows': 5}),
         }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['autor'].empty_label = 'escolha um usuário'
+
     def clean_texto(self):
         texto = self.cleaned_data['texto'].strip()
         if len(texto) < 3:
