@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Comentar &mdash; Quadra Lenta{% endblock %}
+
+{% block conteudo %}
+
+  <h1>Comentar</h1>
+  <p class="meta">
+    em <a href="{% url 'post_detail' post.pk %}">{{ post.titulo }}</a>
+  </p>
+
+  <form class="formulario" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <div class="acoes">
+      <button class="botao" type="submit">Publicar comentário</button>
+      <a class="botao botao-vazio" href="{% url 'post_detail' post.pk %}">Cancelar</a>
+    </div>
+  </form>
+
+{% endblock %}

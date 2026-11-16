@@ -1,5 +1,7 @@
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 
 
 class Post(models.Model):
@@ -27,3 +29,38 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post_detail', args=[self.pk])
+
+
+class Comment(models.Model):
+    """Comentario de um leitor num post.
+
+    O autor referencia o modelo User do Django por settings.AUTH_USER_MODEL,
+    como recomenda a documentacao, em vez de importar User direto.
+    """
+
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        related_name='comentarios',
+        verbose_name='post',
+    )
+    autor = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='comentarios',
+        verbose_name='autor',
+    )
+    texto = models.TextField('texto')
+    data_postagem = models.DateTimeField('data de postagem', default=timezone.now)
+
+    class Meta:
+        verbose_name = 'comentario'
+        verbose_name_plural = 'comentarios'
+        # Mais recente primeiro, como pede o enunciado.
+        ordering = ['-data_postagem']
+
+    def __str__(self):
+        return f'{self.autor} em "{self.post.titulo}"'
+
+    def get_absolute_url(self):
+        return self.post.get_absolute_url()
