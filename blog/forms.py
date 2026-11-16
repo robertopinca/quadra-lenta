@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Post
+from .models import Comment, Post
 
 
 class PostForm(forms.ModelForm):
@@ -31,3 +31,29 @@ class PostForm(forms.ModelForm):
         if len(titulo) < 4:
             raise forms.ValidationError('O título está curto demais.')
         return titulo
+
+
+class CommentForm(forms.ModelForm):
+    """Form do comentario.
+
+    O autor e um campo de escolha entre os usuarios cadastrados: autenticacao
+    e assunto do laboratorio 5, e esta entrega nao a pede. Os usuarios sao
+    criados pelo administrador, a partir do super-usuario.
+    """
+
+    class Meta:
+        model = Comment
+        fields = ['autor', 'texto']
+        labels = {
+            'autor': 'Comentando como',
+            'texto': 'Comentário',
+        }
+        widgets = {
+            'texto': forms.Textarea(attrs={'rows': 5}),
+        }
+
+    def clean_texto(self):
+        texto = self.cleaned_data['texto'].strip()
+        if len(texto) < 3:
+            raise forms.ValidationError('Escreva alguma coisa antes de enviar.')
+        return texto

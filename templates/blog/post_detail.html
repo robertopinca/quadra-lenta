@@ -18,4 +18,42 @@
     </p>
   </article>
 
+  <section class="comentarios">
+    <h2 class="secao-titulo">
+      Comentários ({{ post.comentarios.count }})
+    </h2>
+
+    {# Ordenados do mais recente para o mais antigo pelo Meta do modelo. #}
+    <ul class="lista-comentarios">
+      {% for comentario in post.comentarios.all %}
+        <li class="comentario">
+          <p class="comentario-cabeca">
+            <span class="comentario-autor">{{ comentario.autor.username }}</span>
+            &middot; {{ comentario.data_postagem|date:"j \d\e b \d\e Y, H:i" }}
+          </p>
+          <p class="comentario-texto">{{ comentario.texto }}</p>
+        </li>
+      {% empty %}
+        <li>
+          <p class="sem-comentarios">
+            Ninguém comentou ainda. Seja o primeiro a discordar.
+          </p>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <h3>Deixe o seu</h3>
+
+    {# Posta direto daqui, na mesma view de criacao de comentarios. #}
+    <form class="formulario" method="post"
+          action="{% url 'comment_create' post.pk %}">
+      {% csrf_token %}
+      {{ comment_form.as_p }}
+      <div class="acoes">
+        <button class="botao" type="submit">Publicar comentário</button>
+        <a href="{% url 'comment_create' post.pk %}">abrir em página própria</a>
+      </div>
+    </form>
+  </section>
+
 {% endblock %}
